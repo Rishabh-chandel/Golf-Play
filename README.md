@@ -162,3 +162,43 @@ Notes:
 - Theme toggle persistence
 - Responsive routing and animated page transitions
 
+## Deployment
+
+Recommended setup:
+
+- Frontend: Netlify using the `client/` folder as the site root.
+- Backend: Render web service using `server/` as the root directory.
+- Database: MongoDB Atlas.
+
+### Netlify
+
+Set these in the Netlify site settings:
+
+- Base directory: `client`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variable: `VITE_API_URL=https://your-render-service.onrender.com/api`
+
+### Render
+
+Use the included `render.yaml` or create a Render web service with:
+
+- Root directory: `server`
+- Build command: `npm install`
+- Start command: `npm start`
+
+Required environment variables on Render:
+
+- `MONGO_URI`
+- `JWT_SECRET`
+- `JWT_REFRESH_SECRET`
+- `CLIENT_URL`
+- `FRONTEND_URL`
+- Stripe keys if you want subscriptions enabled
+
+### After deploy
+
+1. Seed MongoDB Atlas with the demo data if you want the sample accounts.
+2. Update `CLIENT_URL` and `VITE_API_URL` to the live URLs.
+3. Redeploy both services after setting the variables.
+
